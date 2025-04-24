@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 19:27:10 by halozdem          #+#    #+#             */
-/*   Updated: 2025/04/24 10:49:56 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/24 11:27:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,28 @@ static int	process_line(t_textures *textures, char *line)
 
 int fill_textures_struct(t_textures *textures, const char *file_name, t_main *main)
 {
-    int fd;
-    char *line;
+    int     fd;
+    char    *line;
+    int     res;
 
-    fd = open(file_name, O_RDWR);
-    if (fd < 0) {
+    fd = open(file_name, O_RDWR, 0777);
+    if (fd < 0)
+    {
         perror("Error: Couldn't open texture file");
-        return -1;  // Return -1 instead of calling exit directly
+        return (-1);
     }
-    
-    while (1) {
+    while (1)
+    {
         line = get_next_line(fd);
         if (line == NULL)
-            break; // Handle end of file or error
-
-        // Process the line, and if there is an error, free the textures
-        if (process_line(textures, line) == -1) {
-            free(line); // Free the line buffer
-            // Free any allocated textures here
-            free_textures(textures);
-            close(fd);
-            return -1;
-        }
-
-        free(line); // Free the line buffer
+            break ;
+        res = process_line(textures, line);
+        if (res == 2)
+            break ;
+        free(line);
     }
-    close(fd); // Ensure you close the file descriptor
-    return 0; // Success
+    if (line)
+        free(line);
+    return (fd);
 }
+
