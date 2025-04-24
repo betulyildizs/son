@@ -68,17 +68,6 @@ void	move_left(t_main *main, const double delta_time)
 		main->player_pos->y -= main->player_pos->dirx * speed;
 }
 
-void resize_window(t_main *main, int new_width, int new_height) 
-{
-    mlx_destroy_window(main->mlx.mlx, main->mlx.win);
-    main->mlx.win = mlx_new_window(main->mlx.mlx, new_width, new_height, "KANZILETTO CUB3D");
-    main->mlx.image.img = mlx_new_image(main->mlx.mlx, new_width, new_height);
-    main->mlx.image.addr = mlx_get_data_addr(main->mlx.image.img, &main->mlx.image.bpp,
-                                              &main->mlx.image.size_line, &main->mlx.image.endian);
-    
-    display(main);
-}
-
 int	render(void *param)
 {
 	t_main					*main;
@@ -91,15 +80,6 @@ int	render(void *param)
 	delta_time = (current - main->mlx.last_tick) / 1000.0;
 	main->mlx.last_tick = current;
 	angle = delta_time * 180 * ROTATION_SPEED * 3.14 / 180.0;
-	int new_width = WIDTH;
-    int new_height = HEIGHT;
-	if (main->mlx.win) {
-        int win_width, win_height;
-        mlx_get_window_size(main->mlx.mlx, &win_width, &win_height);
-        if (win_width != new_width || win_height != new_height) {
-            resize_window(main, new_width, new_height);
-        }
-    }
 	if_condition(main, angle, delta_time);
 	if (main->keys.esc_pressed)
 	{
