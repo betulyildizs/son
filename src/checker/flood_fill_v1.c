@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:49:18 by halozdem          #+#    #+#             */
-/*   Updated: 2025/04/24 10:34:51 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/24 12:15:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	check_flood_error(t_main *main, int i, int j)
 	}
 	if (ft_strchr("10", main->map->copy_map[i][j]))
 	{
-		printf("Error: Map is not properly enclosed by walls.\n");
+		printf("Error: Invalid map.\n");
 		free_copy_map(main->map);
 		free_all(main);
 		exit(1);

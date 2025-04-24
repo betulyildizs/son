@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 17:42:14 by halozdem          #+#    #+#             */
-/*   Updated: 2025/04/24 10:34:10 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/24 12:36:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static int handle_textures(t_main *main, char *path)
     int fd;
 
     if (!main->textures)
-        return (1);  // Add specific error message
-
+        return (1);
     fd = fill_textures_struct(main->textures, path, main);
     if (fd == -1)
     {
@@ -26,7 +25,6 @@ static int handle_textures(t_main *main, char *path)
         free_all(main);
         return (1);
     }
-
     if (check_image(main->textures) || check_color(main->textures) ||
         is_any_texture_file_empty(main->textures))
     {
@@ -34,7 +32,6 @@ static int handle_textures(t_main *main, char *path)
         free_all(main);
         return (1);
     }
-
     return (fd);
 }
 
@@ -57,6 +54,8 @@ static void	av_check(int argc, char *av)
 		ft_putstr_fd("Error\nThe file is not '.cub' extension.\n", 1);
 		exit(1);
 	}
+    special_cont(av);
+    check_textures_in_map(av);
 }
 
 static int	handle_map(t_main *main, int *fd, char *path)

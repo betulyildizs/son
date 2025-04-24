@@ -6,12 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:29:14 by halozdem          #+#    #+#             */
-/*   Updated: 2025/04/24 10:30:50 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/24 12:36:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# define VALID_CHARS "01NSWE"
 
 # define HEIGHT 720
 # define WIDTH 1280
@@ -157,6 +159,8 @@ typedef struct s_main
 	int					error;
 }						t_main;
 
+void					check_textures_in_map(const char *map_file) ;
+void					special_cont(const char *file_name);
 int						close_window(void *param);
 char					init_map(t_map *map);
 t_image					*get_texture(t_mlx *mlx, t_ray *ray);

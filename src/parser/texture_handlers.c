@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 19:26:48 by halozdem          #+#    #+#             */
-/*   Updated: 2025/04/23 19:58:19 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/24 12:17:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static int	handle_texture(t_line_parse *p, char *prefix, int idx)
 		p->textures->textures[idx] = 1;
 		content = ft_strtrim(str, " \n");
 		if (idx == 0)
-		{
 			p->textures->no = content;
-			printf("NO: %s\n", p->textures->no);
-		}
 		else if (idx == 1)
 			p->textures->so = content;
 		else if (idx == 2)

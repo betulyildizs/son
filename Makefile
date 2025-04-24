@@ -12,7 +12,8 @@ SRCS = main.c src/parser/fill_struct.c src/parser/init.c src/utils/parser_utils.
 	src/parser/map_init.c src/parser/map_utils.c src/parser/texture_handlers.c \
 	src/parser/texture_processing.c src/parser/player_dir.c src/executor/render.c \
 	src/executor/render_rotate.c src/executor/display.c src/executor/ray.c \
-	src/executor/init_mlx.c gnl/get_next_line.c gnl/get_next_line_utils.c
+	src/executor/init_mlx.c gnl/get_next_line.c gnl/get_next_line_utils.c src/checker/special_cont.c \
+	src/checker/special_texture_cont.c \
 
 OBJS = $(SRCS:.c=.o)
 
