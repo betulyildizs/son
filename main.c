@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 17:42:14 by halozdem          #+#    #+#             */
-/*   Updated: 2025/04/24 12:36:43 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/24 14:15:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	handle_map(t_main *main, int *fd, char *path)
 		printf("Error: Invalid map.\n");
 		free_all(main);
 		main = NULL;
-		return (1);
+		exit (1);
 	}
 	return (0);
 }

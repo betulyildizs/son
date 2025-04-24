@@ -1,3 +1,4 @@
+#include "../../lib/cub3d.h"
 
 #include "../../lib/cub3d.h"
 #include <ctype.h>
@@ -9,6 +10,7 @@ void special_cont(const char *file_name)
     int bytes_read;
     int i, j, color_value;
     int color_count; // To track the number of colors
+    int map_section_started = 0; // Flag to track if we've reached the map section
 
     fd = open(file_name, O_RDONLY);
     if (fd < 0)
@@ -23,7 +25,7 @@ void special_cont(const char *file_name)
         for (i = 0; buffer[i]; i++)
         {
             // Check for color definitions
-            if (buffer[i] == 'C' || buffer[i] == 'F') 
+            if ((buffer[i] == 'C' || buffer[i] == 'F') && !map_section_started) 
             {
                 color_value = 0;
                 color_count = 0; // Reset color count for each color definition
@@ -58,10 +60,36 @@ void special_cont(const char *file_name)
                     exit(1);
                 }
             }
-            // Check map characters
-            else if (buffer[i] != '\n' && !isspace(buffer[i]))
+            // Detect the start of the map section
+            else if (!map_section_started && buffer[i] == '1')
             {
-                continue; // Skip invalid characters but allow for newlines and spaces
+                // Check if this is the start of the map (a line with consecutive 1's)
+                int wall_count = 0;
+                for (j = i; buffer[j] && buffer[j] != '\n'; j++) {
+                    if (buffer[j] == '1') 
+                        wall_count++;
+                }
+
+                // If we see multiple wall characters in a row, this is likely the map
+                if (wall_count > 3) {
+                    map_section_started = 1;
+                }
+            }
+            // We're in the map section now
+            else if (map_section_started)
+            {
+                // Skip newlines and spaces in the map (they're allowed)
+                if (buffer[i] == '\n' || isspace(buffer[i]))
+                    continue;
+
+                if (buffer[i] != '0' && buffer[i] != '1' && 
+                    buffer[i] != 'N' && buffer[i] != 'S' && 
+                    buffer[i] != 'E' && buffer[i] != 'W')
+                {
+                    printf("Error: Invalid character in map.\n");
+                    close(fd);
+                    exit(1);
+                }
             }
         }
     }

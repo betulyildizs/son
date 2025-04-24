@@ -1,11 +1,11 @@
 F 10,20,255
-C 116,250,255
+C 116,250,200
 NO ./textures/NO.xpm
 SO ./textures/SO.xpm
 EA ./textures/EA.xpm
 WE ./textures/WE.xpm
 
 
-111
-1W1
-111
+1111
+1W 1
+1111
